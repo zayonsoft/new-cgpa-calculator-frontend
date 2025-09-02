@@ -1,0 +1,5 @@
+.login-form-bg {
+  background: linear-gradient(#00000099, #00000099), url(./cgpa_login_bg.jpg);
+  background-position: center;
+  background-size: cover;
+}
