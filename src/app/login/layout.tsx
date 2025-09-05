@@ -2,7 +2,9 @@
 import type { Metadata } from "next";
 import Logo from "@/app/favicon.png";
 import Image from "next/image";
+import { Inter } from "next/font/google";
 import "@/styles/styles.css";
+import ThemeToggleButton from "./components/ThemeToggleButton";
 
 export const metadata: Metadata = {
   title: "LOGIN | CGPA CALCULATOR ",
@@ -11,6 +13,11 @@ export const metadata: Metadata = {
     shortcut: Logo.src,
   },
 };
+
+const inter = Inter({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+});
 
 export default function LoginLayout({
   children,
@@ -29,7 +36,10 @@ export default function LoginLayout({
         />
         {/* section For the Toggle buttons */}
         <div className="justify-self-end self-center p-2">
-          <p className="text-sm">Theme Toggler</p>
+          <p className={`${inter.className} flex items-center gap-2 text-sm`}>
+            <span>Theme</span>
+            <ThemeToggleButton />
+          </p>
         </div>
       </div>
       <div className="pt-8 max-[760px]:pt-5">{children}</div>
