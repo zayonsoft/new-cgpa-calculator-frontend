@@ -126,8 +126,8 @@ export default function Login(): JSX.Element {
                 className="grid rounded-[15px] justify-items-center  items-center p-2.5 border-black dark:border-[#CBCBCB] border transition ease-in-out duration-900"
                 href={"#"}
               >
-                <span className="grid gap-1 grid-cols-[auto_1fr] items-center transition ease-in-out duration-900 dark:text=[#CBCBCB]">
-                  <FaApple color="#CBCBCB" />
+                <span className="grid gap-1 grid-cols-[auto_1fr] items-center transition ease-in-out duration-900 dark:text-[#CBCBCB]">
+                  <FaApple />
                   <span className="text-xs font-normal max-[800px]:text-[10px] transition ease-in-out duration-900 dark:text-[#CBCBCB]">
                     Apple
                   </span>
