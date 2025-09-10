@@ -1,3 +1,4 @@
+"use client";
 import { JSX } from "react";
 import Image from "next/image";
 import { Inter, Poppins } from "next/font/google";
@@ -5,6 +6,7 @@ import Link from "next/link";
 import OtherLoginInfo from "./components/OtherLoginInfo";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const inter = Inter({
   subsets: ["latin"], // required
@@ -17,6 +19,7 @@ const poppins = Poppins({
 });
 
 export default function Login(): JSX.Element {
+  const { theme, toggleTheme } = useTheme();
   return (
     <div className="grid grid-cols-2 gap-3 max-[760px]:grid-cols-1 h-full">
       <div className="bg-red-500 grid gap-3 h-auto grid-rows-[150px_1fr] max-[760px]:hidden">
@@ -48,14 +51,26 @@ export default function Login(): JSX.Element {
           </div>
         </div>
       </div>
-      <div className={`${poppins.className} grid bg-lime-700`}>
+      <div
+        className={`${poppins.className} grid bg-lime-700 transition ease-in-out duration-900`}
+      >
         {/* THE FORM SECTION */}
-        <div className="bg-white grid w-full max-w-[400px] p-7 m-auto text-[#111111] gap-10 font-semibold  rounded-xl">
-          <p className="text-center text-xl">Welcome!</p>
+        <div
+          className={
+            "bg-white grid w-full max-w-[400px] p-7 m-auto text-[#111111] gap-10 font-semibold transition ease-in-out duration-900  rounded-xl dark:bg-[#1F1F1F]"
+          }
+        >
+          <p
+            className={
+              "text-[#111111] text-center text-xl transition ease-in-out duration-900 dark:text-[#FFFFFF]"
+            }
+          >
+            Welcome!
+          </p>
           <form className="grid gap-3" action="">
             <div>
               <label
-                className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] "
+                className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] transition ease-in-out duration-900 dark:bg-[#1F1F1F] dark:text-[#CBCBCB]"
                 htmlFor="username"
               >
                 Username or Email
@@ -63,7 +78,7 @@ export default function Login(): JSX.Element {
               <span className="text-[10px]">
                 <input
                   id="username"
-                  className="w-full outline-none border border-[#000000] text-[#0000009d] rounded-xl p-3 placeholder:text-[#00000099] placeholder:font-normal placeholder:italic"
+                  className="w-full outline-none border border-[#000000] dark:border-[#FFFFFF] text-[#0000009d] transition ease-in-out duration-900 dark:text-[#FFFFFF99] rounded-xl p-3 placeholder:text-[#00000099] dark:placeholder:text-[#FFFFFF99]  placeholder:font-normal placeholder:italic"
                   type="text"
                   placeholder="Enter your username or email"
                 />
@@ -72,7 +87,7 @@ export default function Login(): JSX.Element {
 
             <div>
               <label
-                className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] "
+                className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] transition ease-in-out duration-900 dark:bg-[#1F1F1F] dark:text-[#CBCBCB]"
                 htmlFor="username"
               >
                 Password
@@ -80,13 +95,13 @@ export default function Login(): JSX.Element {
               <span className="grid gap-1 text-[10px]">
                 <input
                   id="username"
-                  className="w-full outline-none border text-[#0000009d] border-[#000000] rounded-xl p-3 placeholder:text-[#00000099] placeholder:font-normal placeholder:italic"
+                  className="w-full outline-none border border-[#000000] dark:border-[#FFFFFF] text-[#0000009d] transition ease-in-out duration-900 dark:text-[#FFFFFF99] rounded-xl p-3 placeholder:text-[#00000099] dark:placeholder:text-[#FFFFFF99]  placeholder:font-normal placeholder:italic"
                   type="text"
                   placeholder="Enter your password"
                 />
                 <p className="justify-self-end">
                   <Link
-                    className={`${inter.className} font-normal text-[10px]`}
+                    className={`${inter.className} font-normal text-[10px] underline transition ease-in-out duration-900 dark:text-[#FFFFFF]`}
                     href={""}
                   >
                     Forgot Password?
@@ -94,6 +109,7 @@ export default function Login(): JSX.Element {
                 </p>
               </span>
             </div>
+
             <div>
               <button
                 className="bg-[#9BF718] w-full rounded-xl text-xs box-border py-3"
@@ -107,25 +123,26 @@ export default function Login(): JSX.Element {
           <div className="grid grid-cols-2 gap-2.5">
             <div>
               <Link
-                className="grid rounded-[15px] justify-items-center items-center p-2.5 border-black border "
+                className="grid rounded-[15px] justify-items-center  items-center p-2.5 border-black dark:border-[#CBCBCB] border transition ease-in-out duration-900"
                 href={"#"}
               >
-                <span className="grid gap-1 grid-cols-[auto_1fr] items-center ">
-                  <FaApple />
-                  <span className="text-xs font-normal max-[800px]:text-[10px]">
+                <span className="grid gap-1 grid-cols-[auto_1fr] items-center transition ease-in-out duration-900 dark:text=[#CBCBCB]">
+                  <FaApple color="#CBCBCB" />
+                  <span className="text-xs font-normal max-[800px]:text-[10px] transition ease-in-out duration-900 dark:text-[#CBCBCB]">
                     Apple
                   </span>
                 </span>
               </Link>
             </div>
+
             <div>
               <Link
-                className="grid rounded-[15px] justify-items-center items-center p-2.5 border-black border "
+                className="grid rounded-[15px] justify-items-center items-center p-2.5 border-black dark:border-[#CBCBCB] border transition ease-in-out duration-900"
                 href={"#"}
               >
-                <span className="grid gap-1 items-center grid-cols-[auto_1fr]">
+                <span className="grid gap-1 items-center grid-cols-[auto_1fr] transition ease-in-out duration-900 dark:text-[#CBCBCB]">
                   <FcGoogle />
-                  <span className="text-xs font-normal max-[800px]:text-[10px]">
+                  <span className="text-xs font-normal max-[800px]:text-[10px] transition ease-in-out duration-900">
                     Google
                   </span>
                 </span>
