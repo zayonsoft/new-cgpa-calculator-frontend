@@ -7,8 +7,7 @@ import Logo from "@/app/favicon.png";
 export const metadata: Metadata = {
   title: "CGPA CALCULATOR | POWERED BY ZAYONSOFT",
   icons: {
-    icon: Logo.src,
-    shortcut: Logo.src,
+    icon: "/round_logo_t_w.png",
   },
   description:
     "The latest update or rebranded version of the CGPA calculator developed by TONY-AKINLOSOTU, Favour Adeniran",

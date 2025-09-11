@@ -34,7 +34,7 @@ export default function Login(): JSX.Element {
         </div>
         <div className={`${inter.className} bg-green-700 content-start`}>
           {/* Just to wrap the content */}
-          <div className="grid gap-2">
+          <div className="grid gap-2 text-white">
             <h1 className="text-xl font-semibold">
               CGPA
               <br />
