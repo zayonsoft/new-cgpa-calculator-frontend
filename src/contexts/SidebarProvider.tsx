@@ -7,11 +7,7 @@ type ProviderProps = {
 };
 
 export default function SidebarProvider({ children }: ProviderProps) {
-  const [asideOpened, setAsideOpen] = useState<boolean>(true);
-
-  useEffect(() => {
-    console.log(asideOpened);
-  });
+  const [asideOpened, setAsideOpen] = useState<boolean>(false);
 
   function toggleAsideOpened() {
     setAsideOpen(!asideOpened);
