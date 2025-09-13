@@ -3,6 +3,7 @@ import "./globals.css";
 import ThemeProvider from "@/contexts/ThemeProvider";
 
 import Logo from "@/app/favicon.png";
+import SidebarProvider from "@/contexts/SidebarProvider";
 
 export const metadata: Metadata = {
   title: "CGPA CALCULATOR | POWERED BY ZAYONSOFT",
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SidebarProvider>{children}</SidebarProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
