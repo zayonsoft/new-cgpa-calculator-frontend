@@ -10,7 +10,7 @@ export default function Aside() {
   const { asideOpened, toggleAsideOpened } = useAside();
   return (
     <aside
-      className={`relative grid gap-4 overflow-hidden content-start bg-gray-100 text-white h-screen custom-transition py-4 px-2.5 ${
+      className={`aside-bg relative grid gap-4 overflow-hidden content-start bg-gray-100 text-white h-screen custom-transition py-4 px-2.5 ${
         asideOpened ? "w-full" : "max-[651px]:w-0 max-[651px]:p-0"
       }`}
     >
@@ -19,7 +19,7 @@ export default function Aside() {
           asideOpened ? "" : "max-[651px]:right-full"
         } `}
       >
-        <div className="grid content-center py-4 m-auto">
+        <div className="grid gap-0.5 content-center py-4 m-auto">
           {" "}
           <Link
             className="justify-self-center justify-items-center outline-none"
@@ -37,15 +37,19 @@ export default function Aside() {
               } custom-transition`}
             />
           </Link>{" "}
+          <hr className="block bg-gray-200 w-full h-0.5" />
+          <p className="text-gray-700 text-xs text-center">Cgpa Calculator</p>
         </div>
       </div>
       <div
-        className={`mt-18 custom-transition overflow-hidden grid gap-0.5 ${
+        className={`mt-17.5 custom-transition overflow-hidden grid gap-0.5 ${
           asideOpened ? "w-full" : "max-[651px]:w-0"
         }`}
       >
         <p
-          className={`text-gray-600 text-xs text-left overflow-hidden custom-transition`}
+          className={`text-gray-600 text-xs text-left overflow-hidden custom-transition ${
+            asideOpened ? "w-full h-full" : "w-0 h-0"
+          }`}
         >
           General
         </p>
