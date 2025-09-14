@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <h1 className="text-xl font-semibold text-gray-900">
-        Welcome, Programmer1
+        Welcome, John Doe!
       </h1>
     </div>
   );

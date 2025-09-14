@@ -25,7 +25,7 @@ export default function DashboardTemplate({
             <button
               type="button"
               onClick={() => toggleAsideOpened()}
-              className="cursor-pointer custom-transition bg-gray-200  rounded outline-none p-1.5 hover:bg-gray-300 active:bg-gray-200"
+              className="cursor-pointer custom-transition bg-[#004badeb] text-gray-200  rounded outline-none p-1.5 hover:bg-[#004bad] active:bg-gray-200"
             >
               <HiMenu size={21} />
             </button>
