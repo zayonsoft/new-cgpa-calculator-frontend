@@ -4,6 +4,7 @@ import { HiMenu } from "react-icons/hi";
 // import { useRouter } from "next/navigations";
 import { useAside } from "@/contexts/SidebarContext";
 import { ReactNode } from "react";
+import ThemeToggleButton from "./login/components/ThemeToggleButton";
 
 export default function DashboardTemplate({
   children,
@@ -20,15 +21,35 @@ export default function DashboardTemplate({
       <Aside />
       {/* The righthand side of the dashboard */}
       <section className="grid grid-rows-[auto_1fr] relative">
-        <div className="bg-gray-100 custom-transition p-4 h-17 grid items-center shadow">
+        <div className="bg-gray-100 custom-transition p-4 h-17 grid grid-cols-2 items-center shadow">
           <div className="flex gap-1">
             <button
               type="button"
               onClick={() => toggleAsideOpened()}
-              className="cursor-pointer custom-transition bg-[#004badeb] text-gray-200  rounded outline-none p-1.5 hover:bg-[#004bad] active:bg-gray-200"
+              className="cursor-pointer custom-transition bg-[#004bad] text-gray-200  rounded outline-none p-1 hover:bg-[#003d8e] active:bg-gray-200"
             >
               <HiMenu size={21} />
             </button>
+          </div>
+          <div className="grid justify-end">
+            {/* HIDDEN STYLES FOR TAILWIND TO LOAD */}
+            <span className="hidden bg-[#2c2c2c]"></span>
+            <span className="hidden bg-[#004bad]"></span>
+            <span className="hidden border-[#2c2c2c]"></span>
+            <span className="hidden border-[#004bad]"></span>
+            <span className="hidden bg-[transparent]"></span>
+            {/* HIDDEN STYLES ENDDDDDDD */}
+            <p className="text-gray-700 text-md flex gap-2 items-center">
+              Theme:
+              <ThemeToggleButton
+                offColor="#2c2c2c"
+                onColor="#004bad"
+                offBorderColor="#2c2c2c"
+                offBackground="transparent"
+                onBackground="transparent"
+                onBorderColor="#004bad"
+              />
+            </p>
           </div>
         </div>
         {/* PAGE CONTENT START */}

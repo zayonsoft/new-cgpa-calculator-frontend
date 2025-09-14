@@ -13,7 +13,7 @@ export default function Aside() {
   const { asideOpened, toggleAsideOpened } = useAside();
   return (
     <aside
-      className={`bg-[#004badeb] relative grid gap-4 overflow-hidden content-start text-white h-screen custom-transition py-4 px-2.5 ${
+      className={`bg-[#004bad] relative grid gap-4 overflow-hidden content-start text-white h-screen custom-transition py-4 px-2.5 ${
         asideOpened ? "w-full" : "max-[651px]:w-0 max-[651px]:p-0"
       }`}
     >
@@ -24,20 +24,24 @@ export default function Aside() {
       >
         <div className="grid gap-1.5 content-center py-2 w-full">
           {" "}
-          <Link className="justify-self-center p-1 outline-none" href={"/"}>
+          <Link className="py-1 px-5 outline-none" href={"/"}>
             <Image
               height={asideOpened ? 20 : 20}
               width={asideOpened ? 100 : 20}
               src={asideOpened ? "/w_zayonsoft_z_beside.svg" : "/z_white.svg"}
               alt="Logo"
-              className={`${asideOpened ? "" : ""} custom-transition`}
+              className={`block ${
+                asideOpened ? "" : "m-auto"
+              } custom-transition`}
             />
           </Link>{" "}
         </div>
       </div>
-      <div className={`grid gap-1.5 mt-17 bg-gray-200 rounded p-2`}>
-        <div className="grid grid-cols-[auto_1fr] gap-1 items-center text-gray-800">
-          <span className="rounded-full bg-[#004bad] p-1.5 grid content-center justify-center text-gray-200 text-xs">
+      <div
+        className={`grid gap-1.5 mt-15 shadow-sm w-11/12 m-auto  shadow-gray-400 rounded p-1.5`}
+      >
+        <div className="grid grid-cols-[auto_1fr] gap-1.5 items-center text-gray-200">
+          <span className="rounded-full bg-gray-200 p-1.5 grid content-center justify-center text-[#004bad] text-xs">
             <FaUser />
           </span>
           <span
@@ -45,7 +49,7 @@ export default function Aside() {
               asideOpened ? "w-full" : "w-0 p-0 h-0"
             } overflow-hidden`}
           >
-            <span className={`text-gray-800 text-xs font-bold`}>John Doe</span>
+            <span className={`text-gray-100 text-xs font-bold`}>John Doe</span>
             <span className={`text-[10px]`}>User</span>
           </span>
         </div>
