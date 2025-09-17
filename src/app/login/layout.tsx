@@ -26,7 +26,7 @@ export default function LoginLayout({
 }) {
   return (
     <section className="grid px-10 max-[500px]:px-5 grid-rows-[auto_1fr] w-full h-screen login-form-bg">
-      <div className="w-full bg-gray-900 h-10 grid max-[760px]:h-auto items-center grid-cols-[1fr_auto]">
+      <div className="w-full h-10 grid max-[760px]:h-auto items-center grid-cols-[1fr_auto]">
         <Image
           className="h-auto min-[760px]:hidden"
           src={"/logo.png"}
@@ -37,7 +37,7 @@ export default function LoginLayout({
         {/* section For the Toggle buttons */}
         <div className="justify-self-end self-center p-2">
           <p className={`${inter.className} flex items-center gap-2 text-sm`}>
-            <span>Theme</span>
+            <span className="text-white">Theme</span>
             <ThemeToggleButton />
           </p>
         </div>

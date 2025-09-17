@@ -38,7 +38,7 @@ export default function Aside() {
         </div>
       </div>
       <div
-        className={`grid gap-1.5 mt-15 shadow-sm w-11/12 m-auto  shadow-gray-400 rounded p-1.5`}
+        className={`grid gap-1.5 mt-15 shadow-xs w-11/12 m-auto shadow-gray-300 rounded p-1.5`}
       >
         <div className="grid grid-cols-[auto_1fr] gap-1.5 items-center text-gray-200">
           <span className="rounded-full bg-gray-200 p-1.5 grid content-center justify-center text-[#004bad] text-xs">

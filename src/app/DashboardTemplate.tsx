@@ -5,6 +5,8 @@ import { HiMenu } from "react-icons/hi";
 import { useAside } from "@/contexts/SidebarContext";
 import { ReactNode } from "react";
 import ThemeToggleButton from "./login/components/ThemeToggleButton";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function DashboardTemplate({
   children,
@@ -21,7 +23,7 @@ export default function DashboardTemplate({
       <Aside />
       {/* The righthand side of the dashboard */}
       <section className="grid grid-rows-[auto_1fr] relative">
-        <div className="bg-gray-100 custom-transition p-4 h-17 grid grid-cols-2 items-center shadow">
+        <div className="bg-gray-100 relative z-20 custom-transition p-4 h-17 grid grid-cols-2 items-center shadow">
           <div className="flex gap-1">
             <button
               type="button"
@@ -39,8 +41,8 @@ export default function DashboardTemplate({
             <span className="hidden border-[#004bad]"></span>
             <span className="hidden bg-[transparent]"></span>
             {/* HIDDEN STYLES ENDDDDDDD */}
-            <p className="text-gray-700 text-md flex gap-2 items-center">
-              Theme:
+            <p className="text-gray-700 text-sm flex gap-2 items-center">
+              Dark Mode:
               <ThemeToggleButton
                 offColor="#2c2c2c"
                 onColor="#004bad"
@@ -53,10 +55,32 @@ export default function DashboardTemplate({
           </div>
         </div>
         {/* PAGE CONTENT START */}
-        <div className="p-4 max-h-full custom-transition absolute top-18 bottom-0 left-0 right-0 custom-scrollbar overflow-y-scroll">
-          <div className="h-screen">{children}</div>
+        <div className="p-4 max-h-full custom-transition absolute top-17 bottom-11 left-0 right-0 custom-scrollbar overflow-y-scroll">
+          <div className="h-[90vh]">{children}</div>
         </div>
         {/* PAGE CONTENT STOP */}
+
+        <footer className="absolute grid justify-center content-center py-1 pt-2 bottom-0 shadow left-0 right-0 h-10 bg-gray-100 text-gray-700">
+          <div className="grid gap-1.5 grid-cols-[auto_auto] items-center text-sm ">
+            <span className="align-middle pb-1">Powered by</span>
+            <Link
+              className="flex items-center"
+              href={"https://wa.me/+2348104465980"}
+            >
+              <span>
+                <Image
+                  className="w-20 h-auto"
+                  src={"/b_zayonsoft_z_beside.svg"}
+                  alt="zayonSoft"
+                  height={0}
+                  width={100}
+                />
+              </span>
+
+              <span className="flex pb-1">, 2024 - 2025</span>
+            </Link>
+          </div>
+        </footer>
       </section>
     </main>
   );

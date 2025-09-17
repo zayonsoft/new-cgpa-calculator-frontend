@@ -22,7 +22,7 @@ export default function Login(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
   return (
     <div className="grid grid-cols-2 gap-3 max-[760px]:grid-cols-1 h-full">
-      <div className="bg-red-500 grid gap-3 h-auto grid-rows-[150px_1fr] max-[760px]:hidden">
+      <div className="grid gap-3 h-auto grid-rows-[150px_1fr] max-[760px]:hidden">
         <div className="py-2 pt-5">
           <Image
             className="h-auto"
@@ -32,7 +32,7 @@ export default function Login(): JSX.Element {
             height={0}
           />
         </div>
-        <div className={`${inter.className} bg-green-700 content-start`}>
+        <div className={`${inter.className} content-start`}>
           {/* Just to wrap the content */}
           <div className="grid gap-2 text-white">
             <h1 className="text-xl font-semibold">
@@ -52,7 +52,7 @@ export default function Login(): JSX.Element {
         </div>
       </div>
       <div
-        className={`${poppins.className} grid bg-lime-700 transition ease-in-out duration-900`}
+        className={`${poppins.className} grid transition ease-in-out duration-900`}
       >
         {/* THE FORM SECTION */}
         <div
