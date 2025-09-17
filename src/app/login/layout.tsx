@@ -9,8 +9,8 @@ import ThemeToggleButton from "../components/ThemeToggleButton";
 export const metadata: Metadata = {
   title: "LOGIN | CGPA CALCULATOR ",
   icons: {
-    icon: Logo.src,
-    shortcut: Logo.src,
+    icon: "/round_logo_t_w.png",
+    shortcut: "/round_logo_t_w.png",
   },
 };
 
@@ -35,7 +35,7 @@ export default function LoginLayout({
           height={0}
         />
         {/* section For the Toggle buttons */}
-        <div className="justify-self-end self-center p-2">
+        <div className="justify-self-end self-center p-3 py-5">
           <p className={`${inter.className} flex items-center gap-2 text-sm`}>
             <span className="text-white">Theme</span>
             <ThemeToggleButton />
