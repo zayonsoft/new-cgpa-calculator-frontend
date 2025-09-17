@@ -4,7 +4,7 @@ import Logo from "@/app/favicon.png";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import "@/styles/styles.css";
-import ThemeToggleButton from "./components/ThemeToggleButton";
+import ThemeToggleButton from "../components/ThemeToggleButton";
 
 export const metadata: Metadata = {
   title: "LOGIN | CGPA CALCULATOR ",

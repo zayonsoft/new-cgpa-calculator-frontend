@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ThemeProvider from "@/contexts/ThemeProvider";
 
-import SidebarProvider from "@/contexts/SidebarProvider";
-import DashboardTemplate from "./DashboardTemplate";
-
 export const metadata: Metadata = {
   title: "CGPA CALCULATOR | POWERED BY ZAYONSOFT",
   icons: {
@@ -22,11 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider>
-          <SidebarProvider>
-            <DashboardTemplate>{children}</DashboardTemplate>
-          </SidebarProvider>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
