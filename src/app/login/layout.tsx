@@ -25,8 +25,8 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="grid px-10 max-[500px]:px-5 grid-rows-[auto_1fr] w-full h-screen login-form-bg">
-      <div className="w-full h-10 grid max-[760px]:h-auto items-center grid-cols-[1fr_auto]">
+    <section className="grid px-10 max-[500px]:px-5 w-full h-screen login-form-bg">
+      <div className="absolute z-10 left-10 right-10 max-[500px]:left-5 max-[500px]:right-5 py-2 grid max-[760px]:h-auto items-center grid-cols-[1fr_auto]">
         <Image
           className="h-auto min-[760px]:hidden"
           src={"/logo.png"}
@@ -35,14 +35,14 @@ export default function LoginLayout({
           height={0}
         />
         {/* section For the Toggle buttons */}
-        <div className="justify-self-end self-center p-3 py-5">
+        <div className="justify-self-end py-1.5 self-center ">
           <p className={`${inter.className} flex items-center gap-2 text-sm`}>
             <span className="text-white">Theme</span>
             <ThemeToggleButton />
           </p>
         </div>
       </div>
-      <div className="pt-8 max-[760px]:pt-5">{children}</div>
+      <div>{children}</div>
     </section>
   );
 }

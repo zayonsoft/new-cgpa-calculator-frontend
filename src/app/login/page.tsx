@@ -21,9 +21,9 @@ const poppins = Poppins({
 export default function Login(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
   return (
-    <div className="grid grid-cols-2 gap-3 max-[760px]:grid-cols-1 h-full">
-      <div className="grid gap-3 h-auto grid-rows-[150px_1fr] max-[760px]:hidden">
-        <div className="py-2 pt-5">
+    <div className="grid relative  grid-cols-2 gap-3 max-[760px]:grid-cols-1 h-full">
+      <div className="grid gap-3 relative h-auto grid-rows-[150px_1fr]  max-[760px]:hidden">
+        <div className="py-2 pt-17">
           <Image
             className="h-auto"
             src={"/logo.png"}
@@ -32,9 +32,11 @@ export default function Login(): JSX.Element {
             height={0}
           />
         </div>
-        <div className={`${inter.className} content-start`}>
+        <div
+          className={`${inter.className} -translate-y-1/2 top-1/2 absolute content-start`}
+        >
           {/* Just to wrap the content */}
-          <div className="grid gap-2 text-white">
+          <div className="grid gap-9 text-white">
             <h1 className="text-xl font-semibold">
               CGPA
               <br />
@@ -57,7 +59,7 @@ export default function Login(): JSX.Element {
         {/* THE FORM SECTION */}
         <div
           className={
-            "bg-white grid w-full max-w-[400px] p-7 m-auto text-[#111111] gap-10 font-semibold transition ease-in-out duration-900  rounded-xl dark:bg-[#1F1F1F]"
+            "bg-white grid w-full max-w-[380px] p-6 m-auto text-[#111111] gap-7 font-semibold transition ease-in-out duration-900  rounded-xl dark:bg-[#1F1F1F]"
           }
         >
           <p
@@ -101,7 +103,7 @@ export default function Login(): JSX.Element {
                 />
                 <p className="justify-self-end">
                   <Link
-                    className={`${inter.className} font-normal text-[10px] underline transition ease-in-out duration-900 dark:text-[#FFFFFF]`}
+                    className={`${inter.className} font-normal text-[10px]  transition ease-in-out duration-900 hover:underline dark:text-[#FFFFFF]`}
                     href={""}
                   >
                     Forgot Password?
@@ -109,10 +111,10 @@ export default function Login(): JSX.Element {
                 </p>
               </span>
             </div>
-
+            {/* after:left-0 after:right-0 after:top-0 after:bottom-0 */}
             <div>
               <button
-                className="bg-[#9BF718] w-full rounded-xl text-xs box-border py-3"
+                className={`bg-[#9BF718] cursor-pointer relative custom-transition hover:bg-[#27f718] w-full rounded-xl text-xs box-border after:w-7 after:h-7 after:rounded-full after:border-gray-900 after:border-l-gray-400 after:border-5 after:-translate-1/2 after:left-1/2 after:top-1/2 py-3 after:absolute after:hidden after:bg-transparent after:animate-spin`}
                 type="submit"
               >
                 Log In
@@ -123,7 +125,7 @@ export default function Login(): JSX.Element {
           <div className="grid grid-cols-2 gap-2.5">
             <div>
               <Link
-                className="grid rounded-[15px] justify-items-center  items-center p-2.5 border-black dark:border-[#CBCBCB] border transition ease-in-out duration-900"
+                className="grid rounded-[15px] justify-items-center  items-center p-2.5 border-black dark:border-[#CBCBCB] hover:bg-[#03030321] hover:border-[#03030321] dark:hover:bg-[#9f9f9f21] dark:hover:border-[#9f9f9f21] border transition ease-in-out duration-900"
                 href={"#"}
               >
                 <span className="grid gap-1 grid-cols-[auto_1fr] items-center transition ease-in-out duration-900 dark:text-[#CBCBCB]">
@@ -137,7 +139,7 @@ export default function Login(): JSX.Element {
 
             <div>
               <Link
-                className="grid rounded-[15px] justify-items-center items-center p-2.5 border-black dark:border-[#CBCBCB] border transition ease-in-out duration-900"
+                className="grid rounded-[15px] justify-items-center items-center p-2.5 border-black dark:border-[#CBCBCB] hover:bg-[#03030321] hover:border-[#03030321] dark:hover:bg-[#9f9f9f21] dark:hover:border-[#9f9f9f21] border transition ease-in-out duration-900"
                 href={"#"}
               >
                 <span className="grid gap-1 items-center grid-cols-[auto_1fr] transition ease-in-out duration-900 dark:text-[#CBCBCB]">
