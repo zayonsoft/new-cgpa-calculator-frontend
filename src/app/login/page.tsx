@@ -1,12 +1,13 @@
 "use client";
-import { JSX } from "react";
+import { FormEvent, JSX } from "react";
 import Image from "next/image";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Montserrat, Poppins } from "next/font/google";
 import Link from "next/link";
 import OtherLoginInfo from "./components/OtherLoginInfo";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useState, useEffect } from "react";
+import LoginInputs from "./components/LoginInputs";
 
 const inter = Inter({
   subsets: ["latin"], // required
@@ -17,9 +18,55 @@ const poppins = Poppins({
   subsets: ["latin"], // required
   weight: ["300", "400", "500", "600", "700", "800"],
 });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export default function Login(): JSX.Element {
-  const { theme, toggleTheme } = useTheme();
+  const [email_or_username, setEmail_or_username] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formOkay, setFormOkay] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+
+  function updateEmail_or_username(new_value: string) {
+    if (!loading) {
+      setEmail_or_username(new_value);
+    }
+  }
+
+  function updatePassword(new_value: string) {
+    if (!loading) {
+      setPassword(new_value);
+    }
+  }
+  function validateForm() {
+    setFormOkay(email_or_username.trim() && password ? true : false);
+    setShowError(true);
+  }
+  function removeError() {
+    // to remove the fill in error when an input is changed
+    setShowError(false);
+  }
+
+  useEffect(() => {
+    removeError();
+  }, [email_or_username, password]);
+
+  function submitForm(e: FormEvent, formOkay: boolean) {
+    e.preventDefault();
+    validateForm();
+    if (formOkay) {
+      // set loading to true
+      setLoading(true);
+      // Make API call
+      // Read response
+    } else {
+      // create a modal to escalate whatever issue
+    }
+  }
+
   return (
     <div className="grid relative  grid-cols-2 gap-3 max-[760px]:grid-cols-1 h-full">
       <div className="grid gap-3 relative h-auto grid-rows-[150px_1fr]  max-[760px]:hidden">
@@ -69,56 +116,40 @@ export default function Login(): JSX.Element {
           >
             Welcome!
           </p>
-          <form className="grid gap-3" action="">
-            <div>
-              <label
-                className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] transition ease-in-out duration-900 dark:bg-[#1F1F1F] dark:text-[#CBCBCB]"
-                htmlFor="username"
-              >
-                Username or Email
-              </label>
-              <span className="text-[10px]">
-                <input
-                  id="username"
-                  className="w-full outline-none border border-[#000000] dark:border-[#FFFFFF] text-[#0000009d] transition ease-in-out duration-900 dark:text-[#FFFFFF99] rounded-xl p-3 placeholder:text-[#00000099] dark:placeholder:text-[#FFFFFF99]  placeholder:font-normal placeholder:italic"
-                  type="text"
-                  placeholder="Enter your username or email"
-                />
-              </span>
-            </div>
+          <form
+            onSubmit={(e) => submitForm(e, formOkay)}
+            className="grid gap-3"
+            action=""
+          >
+            <LoginInputs
+              email_or_username={email_or_username}
+              password={password}
+              updateEmail_or_username={updateEmail_or_username}
+              updatePassword={updatePassword}
+            />
 
             <div>
-              <label
-                className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] transition ease-in-out duration-900 dark:bg-[#1F1F1F] dark:text-[#CBCBCB]"
-                htmlFor="username"
-              >
-                Password
-              </label>
-              <span className="grid gap-1 text-[10px]">
-                <input
-                  id="username"
-                  className="w-full outline-none border border-[#000000] dark:border-[#FFFFFF] text-[#0000009d] transition ease-in-out duration-900 dark:text-[#FFFFFF99] rounded-xl p-3 placeholder:text-[#00000099] dark:placeholder:text-[#FFFFFF99]  placeholder:font-normal placeholder:italic"
-                  type="text"
-                  placeholder="Enter your password"
-                />
-                <p className="justify-self-end">
-                  <Link
-                    className={`${inter.className} font-normal text-[10px]  transition ease-in-out duration-900 hover:underline dark:text-[#FFFFFF]`}
-                    href={""}
-                  >
-                    Forgot Password?
-                  </Link>
-                </p>
-              </span>
-            </div>
-            {/* after:left-0 after:right-0 after:top-0 after:bottom-0 */}
-            <div>
               <button
-                className={`bg-[#9BF718] cursor-pointer relative custom-transition hover:bg-[#27f718] w-full rounded-xl text-xs box-border after:w-7 after:h-7 after:rounded-full after:border-gray-900 after:border-l-gray-400 after:border-5 after:-translate-1/2 after:left-1/2 after:top-1/2 py-3 after:absolute after:hidden after:bg-transparent after:animate-spin`}
+                className={`${
+                  loading
+                    ? "bg-[#b4de78] cursor-auto"
+                    : "bg-[#9BF718] cursor-pointer"
+                } relative custom-transition ${
+                  !loading ? "hover:bg-[#06ab00]" : ""
+                }  w-full rounded-xl text-xs box-border h-10 after:w-7 after:h-7 after:rounded-full after:border-gray-900 after:border-l-gray-400 after:border-5 after:-translate-1/2 after:left-1/2 after:top-1/2 py-3 after:absolute after:${
+                  !loading ? "hidden" : "block"
+                } after:bg-transparent after:animate-spin`}
                 type="submit"
               >
-                Log In
+                {!loading ? "Log In" : ""}
               </button>
+              {showError && !formOkay ? (
+                <small
+                  className={`${montserrat} text-center text-red-800 font-normal text-xs block`}
+                >
+                  fill in all fields
+                </small>
+              ) : null}
             </div>
           </form>
           <OtherLoginInfo text="Or Sign In with" />
