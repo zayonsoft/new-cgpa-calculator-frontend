@@ -56,7 +56,7 @@ export default function LoginInputs({
             id="username"
             name="password"
             className="w-full outline-none border border-[#000000] dark:border-[#FFFFFF] text-[#0000009d] transition ease-in-out duration-900 dark:text-[#FFFFFF99] rounded-xl p-3 placeholder:text-[#00000099] dark:placeholder:text-[#FFFFFF99]  placeholder:font-normal placeholder:italic"
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => updatePassword(e.target.value)}
             placeholder="Enter your password"
