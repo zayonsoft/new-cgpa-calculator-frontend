@@ -60,7 +60,9 @@ export default function Login(): JSX.Element {
     if (formOkay) {
       // set loading to true
       setLoading(true);
+
       // Make API call
+
       // Read response
     } else {
       // show error
