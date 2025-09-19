@@ -47,13 +47,13 @@ export default function LoginInputs({
       <div>
         <label
           className="relative top-[11px] left-2.5 inline-block text-[10px] font-normal bg-white p-0.5 py-[3px] transition ease-in-out duration-900 dark:bg-[#1F1F1F] dark:text-[#CBCBCB]"
-          htmlFor="username"
+          htmlFor="password"
         >
           Password
         </label>
         <span className="grid gap-1 text-[10px]">
           <input
-            id="username"
+            id="password"
             name="password"
             className="w-full outline-none border border-[#000000] dark:border-[#FFFFFF] text-[#0000009d] transition ease-in-out duration-900 dark:text-[#FFFFFF99] rounded-xl p-3 placeholder:text-[#00000099] dark:placeholder:text-[#FFFFFF99]  placeholder:font-normal placeholder:italic"
             type="password"
