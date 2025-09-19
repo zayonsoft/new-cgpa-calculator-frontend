@@ -41,10 +41,10 @@ export default function Login(): JSX.Element {
       setPassword(new_value);
     }
   }
-  function validateForm() {
+  useEffect(() => {
     setFormOkay(email_or_username.trim() && password ? true : false);
-    setShowError(true);
-  }
+  }, [email_or_username, password]);
+
   function removeError() {
     // to remove the fill in error when an input is changed
     setShowError(false);
@@ -56,13 +56,15 @@ export default function Login(): JSX.Element {
 
   function submitForm(e: FormEvent, formOkay: boolean) {
     e.preventDefault();
-    validateForm();
+
     if (formOkay) {
       // set loading to true
       setLoading(true);
       // Make API call
       // Read response
     } else {
+      // show error
+      setShowError(true);
       // create a modal to escalate whatever issue
     }
   }
