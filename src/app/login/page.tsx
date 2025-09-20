@@ -10,6 +10,9 @@ import { useState, useEffect } from "react";
 import LoginInputs from "./components/LoginInputs";
 import RequestAPI from "../components/RequestAPI";
 import MessageModal from "../components/MessageModal";
+import { log } from "console";
+import UpdateTokens from "../components/UpdateTokens";
+import { useRouter } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"], // required
@@ -26,6 +29,7 @@ const montserrat = Montserrat({
 });
 
 export default function Login(): JSX.Element {
+  const router = useRouter();
   const [email_or_username, setEmail_or_username] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,6 +53,13 @@ export default function Login(): JSX.Element {
       setPassword(new_value);
     }
   }
+
+  function resetLogin() {
+    setEmail_or_username("");
+    setPassword("");
+    setLoading(false);
+  }
+
   useEffect(() => {
     setFormOkay(email_or_username.trim() && password ? true : false);
     if (email_or_username.trim() || password) {
@@ -89,11 +100,24 @@ export default function Login(): JSX.Element {
       const loginUrl = "/login";
       RequestAPI()
         .post(loginUrl, loginForm)
-        .then((response) => console.log(response))
+        .then((response) => {
+          console.log(response);
+          const access = response.data?.tokens?.access;
+          const refresh = response.data?.tokens?.refresh;
+          UpdateTokens(access, refresh);
+          resetLogin();
+          router.push("/dashboard");
+        })
         .catch((error) => {
-          error.message
-            ? setErrorMessage(error.message)
-            : setErrorMessage("Something went wrong");
+          let errorGotten: string;
+          if (error?.response?.data?.detail) {
+            errorGotten = error.response.data.detail;
+          } else {
+            error.message
+              ? (errorGotten = error.message)
+              : (errorGotten = "Something Went Wrong");
+          }
+          setErrorMessage(errorGotten);
           setShowError(true);
           setModalOpen(true);
           setLoading(false);

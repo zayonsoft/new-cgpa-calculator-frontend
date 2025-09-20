@@ -29,12 +29,12 @@ export default function MessageModal({
       >
         <div>
           {type == "error" ? (
-            <HiXCircle className="text-7xl text-red-600 m-auto" />
+            <HiXCircle className="text-6xl text-red-600 m-auto" />
           ) : (
-            <HiCheckCircle className="text-7xl text-green-600 m-auto" />
+            <HiCheckCircle className="text-6xl text-green-600 m-auto" />
           )}
         </div>
-        <p className="text-center font-semibold">{message}</p>
+        <p className="text-center text-md font-medium">{message}</p>
         <div>
           <button
             onClick={() => modalCloser()}
@@ -42,7 +42,7 @@ export default function MessageModal({
               type == "error"
                 ? "bg-red-600 hover:bg-red-700"
                 : "bg-green-600 hover:bg-green-700"
-            }  p-2 rounded cursor-pointer custom-transition text-white w-full`}
+            }  p-2 rounded cursor-pointer text-sm custom-transition text-white w-full`}
             type="button"
           >
             Close

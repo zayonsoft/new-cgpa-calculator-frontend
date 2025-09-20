@@ -16,9 +16,6 @@ export default function AdminDashboard() {
         <h1 className="text-xl p-0 font-semibold text-gray-900">
           Welcome, John Doe!
         </h1>
-        {/* <p className="text-[11px] p-1.5 rounded bg-[#004bad] w-fit text-gray-100">
-          CGPA CALCULATOR
-        </p> */}
         <p className="text-[11px] px-0.5 rounded w-fit text-gray-900">
           CGPA CALCULATOR
         </p>

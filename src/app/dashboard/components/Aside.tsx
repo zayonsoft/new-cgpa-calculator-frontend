@@ -6,8 +6,6 @@ import AsideLink from "./AsideLink";
 import Image from "next/image";
 import { useAside } from "@/contexts/SidebarContext";
 import { FaUser } from "react-icons/fa";
-import { LuLogOut } from "react-icons/lu";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 export default function Aside() {
   const { asideOpened, toggleAsideOpened } = useAside();
