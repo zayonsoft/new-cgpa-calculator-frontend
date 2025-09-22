@@ -8,10 +8,9 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import LoginInputs from "./components/LoginInputs";
-import RequestAPI from "../components/RequestAPI";
+import RequestAPI from "../tokens/RequestAPI";
 import MessageModal from "../components/MessageModal";
-import { log } from "console";
-import UpdateTokens from "../components/UpdateTokens";
+import UpdateTokens from "@/app/tokens/UpdateTokens";
 import { useRouter } from "next/navigation";
 
 const inter = Inter({
@@ -34,9 +33,8 @@ export default function Login(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [formOkay, setFormOkay] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>(
-    "Something Went Wrong!"
-  );
+  const [message, setMessage] = useState<string>("Something Went Wrong!");
+  const [extraMsg, setExtraMsg] = useState<string>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messageType, setMessageType] = useState<"success" | "error">("error");
 
@@ -62,12 +60,14 @@ export default function Login(): JSX.Element {
 
   useEffect(() => {
     setFormOkay(email_or_username.trim() && password ? true : false);
-    if (email_or_username.trim() || password) {
-      if (!email_or_username.trim())
-        setErrorMessage("Email or Username is required");
-      else if (!password) setErrorMessage("Password is Required!");
-    } else {
-      setErrorMessage("Please fill in your details to log in");
+    if (messageType == "error") {
+      if (email_or_username.trim() || password) {
+        if (!email_or_username.trim())
+          setMessage("Email or Username is required");
+        else if (!password) setMessage("Password is Required!");
+      } else {
+        setMessage("Please fill in your details to log in");
+      }
     }
   }, [email_or_username, password]);
 
@@ -106,6 +106,10 @@ export default function Login(): JSX.Element {
           const refresh = response.data?.tokens?.refresh;
           UpdateTokens(access, refresh);
           resetLogin();
+          setMessageType("success");
+          setMessage("Login Successful");
+          setExtraMsg("Redirecting...");
+          setModalOpen(true);
           router.push("/dashboard");
         })
         .catch((error) => {
@@ -117,7 +121,7 @@ export default function Login(): JSX.Element {
               ? (errorGotten = error.message)
               : (errorGotten = "Something Went Wrong");
           }
-          setErrorMessage(errorGotten);
+          setMessage(errorGotten);
           setShowError(true);
           setModalOpen(true);
           setLoading(false);
@@ -213,7 +217,7 @@ export default function Login(): JSX.Element {
                   <small
                     className={`${montserrat} text-center text-red-800 font-normal text-xs block`}
                   >
-                    {errorMessage}
+                    {message}
                   </small>
                 ) : null}
               </div>
@@ -252,10 +256,11 @@ export default function Login(): JSX.Element {
         </div>
       </div>
       <MessageModal
-        message={errorMessage}
+        message={message}
         open={modalOpen}
         modalCloser={modalCloser}
         type={messageType}
+        extra_msg={extraMsg ? extraMsg : null}
       />
     </>
   );

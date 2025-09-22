@@ -64,8 +64,12 @@ export default function Aside() {
         >
           General
         </p>
-        <AsideLink name="Home" icon={<HiViewGrid size={22} />} />
-        <AsideLink name="Announcements" icon={<MdCampaign size={22} />} />
+        <AsideLink url="" name="Home" icon={<HiViewGrid size={22} />} />
+        <AsideLink
+          url=""
+          name="Announcements"
+          icon={<MdCampaign size={22} />}
+        />
       </div>
 
       <div
@@ -80,7 +84,7 @@ export default function Aside() {
         >
           Security
         </p>
-        <AsideLink name="Logout" icon={<MdLogout size={22} />} />
+        <AsideLink url="/logout" name="Logout" icon={<MdLogout size={22} />} />
       </div>
     </aside>
   );

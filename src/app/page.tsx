@@ -1,5 +1,6 @@
-import { redirect } from "next/navigation";
+"use client";
+import RefreshToken from "./tokens/RefreshToken";
 
 export default function First() {
-  redirect("/login");
+  RefreshToken();
 }

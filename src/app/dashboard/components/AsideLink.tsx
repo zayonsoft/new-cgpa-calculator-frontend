@@ -5,8 +5,9 @@ import { useAside } from "@/contexts/SidebarContext";
 type LinkProps = {
   name: string;
   icon: React.ReactNode;
+  url: string;
 };
-export default function AsideLink({ name, icon }: LinkProps) {
+export default function AsideLink({ name, icon, url }: LinkProps) {
   const { asideOpened } = useAside();
   return (
     <div>
@@ -18,7 +19,7 @@ export default function AsideLink({ name, icon }: LinkProps) {
               ? "grid-cols-[auto_1fr] grid-rows-1"
               : "grid-cols-1 grid-rows-1"
           }`}
-          href={"#"}
+          href={url}
         >
           <span
             className={`p-2 font-bold w-10 text-center grid justify-center `}
