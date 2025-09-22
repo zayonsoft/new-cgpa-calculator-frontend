@@ -6,9 +6,11 @@ import AsideLink from "./AsideLink";
 import Image from "next/image";
 import { useAside } from "@/contexts/SidebarContext";
 import { FaUser } from "react-icons/fa";
+import { useUser } from "@/contexts/UserContext";
 
 export default function Aside() {
   const { asideOpened, toggleAsideOpened } = useAside();
+  const { user } = useUser();
   return (
     <aside
       className={`bg-[#004bad] relative grid gap-4 overflow-hidden content-start text-white h-screen custom-transition py-4 px-2.5 ${
@@ -47,7 +49,9 @@ export default function Aside() {
               asideOpened ? "w-full" : "w-0 p-0 h-0"
             } overflow-hidden`}
           >
-            <span className={`text-gray-100 text-xs font-bold`}>John Doe</span>
+            <span className={`text-gray-100 text-xs font-bold`}>
+              {user.username}
+            </span>
             <span className={`text-[10px]`}>User</span>
           </span>
         </div>

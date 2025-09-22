@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import { UserResponseType } from "./UserContext";
 import RequestAPI from "@/app/tokens/RequestAPI";
@@ -12,6 +12,8 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     email: "",
     user_profile: { is_admin: false, phone_number: "" },
   };
+  const [user, setUser] = useState(systemUser);
+
   const axios = RequestAPI();
   const router = useRouter();
 
@@ -27,12 +29,10 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     systemUser.first_name = first_name;
     systemUser.last_name = last_name;
 
-    console.log(user_profile?.is_admin);
-
     systemUser.user_profile.is_admin = user_profile.is_admin;
     systemUser.user_profile.phone_number = user_profile.phone_number;
 
-    console.log(systemUser);
+    setUser(systemUser);
   }
 
   function checkAccess() {
@@ -69,7 +69,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     checkAccess();
   }, []);
   return (
-    <UserContext.Provider value={{ user: systemUser, updateUser }}>
+    <UserContext.Provider value={{ user, updateUser }}>
       {children}
     </UserContext.Provider>
   );

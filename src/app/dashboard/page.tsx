@@ -6,15 +6,21 @@ import { GrUserAdmin } from "react-icons/gr";
 import { PiShieldCheckFill } from "react-icons/pi";
 import GradingSystemTable from "./components/GradingSystemTable";
 import RecentUser from "./components/RecentUsers";
+import { useUser } from "@/contexts/UserContext";
 
 // MOBILE VIEW STARTS AT 650px FOR DASHBOARD
 
 export default function AdminDashboard() {
+  const { user } = useUser();
   return (
     <div className="grid gap-4.5 pb-4">
       <div className="w-fit">
         <h1 className="text-xl p-0 font-semibold text-gray-900">
-          Welcome, John Doe!
+          Welcome,{" "}
+          {user.last_name
+            ? `${user.last_name} ${user.first_name}`
+            : user.username}
+          !
         </h1>
         <p className="text-[11px] px-0.5 rounded w-fit text-gray-900">
           CGPA CALCULATOR
