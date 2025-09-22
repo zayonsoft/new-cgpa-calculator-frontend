@@ -10,7 +10,7 @@ export default function RefreshToken() {
   useEffect(() => {
     const refresh_token = localStorage.getItem("cgpa_calc_refresh");
     axios
-      .post("/token/refresh", { refresh: refresh_token })
+      .post("token/refresh", { refresh: refresh_token })
       .then((response) => {
         const new_access_token = response?.data?.access;
         UpdateTokens(new_access_token);
