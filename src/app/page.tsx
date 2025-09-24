@@ -1,6 +1,4 @@
-"use client";
-import RefreshToken from "./tokens/RefreshToken";
-
+import { redirect } from "next/navigation";
 export default function First() {
-  RefreshToken();
+  redirect("/dashboard");
 }

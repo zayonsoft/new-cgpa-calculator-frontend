@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import { HiMail, HiViewGrid } from "react-icons/hi";
-import { MdCampaign, MdLogout } from "react-icons/md";
+import { HiMail, HiViewGrid, HiLogout } from "react-icons/hi";
 import AsideLink from "./AsideLink";
 import Image from "next/image";
 import { useAside } from "@/contexts/SidebarContext";
@@ -93,7 +92,7 @@ export default function Aside() {
         >
           Security
         </p>
-        <AsideLink url="/logout" name="Logout" icon={<MdLogout size={22} />} />
+        <AsideLink url="/logout" name="Logout" icon={<HiLogout size={22} />} />
       </div>
     </aside>
   );

@@ -1,10 +1,15 @@
+import ClassicUnderline from "@/app/components/ClassicUnderline";
+import ReceipientComponent from "./ReceipientComponent";
+
 export default function Announcements() {
   return (
     <section className="grid gap-4 grid-cols-2">
       {/* Left div */}
-      <div className="grid gap-2 bg-gray-100 rounded-md">
-        <div className="px-4 py-2 border-b border-b-gray-500">
-          <h1 className="font-semibold text-2xl">Send Mails</h1>
+      <div className="grid py-1.5 gap-1 bg-gray-100 rounded-md shadow-sm ">
+        <div className="p-4">
+          <h1 className="text-xl font-semibold text-gray-900">
+            <ClassicUnderline text="Send Mail" />
+          </h1>
         </div>
         <div className="p-4 ">
           <form className="grid gap-4" action="">
@@ -14,9 +19,10 @@ export default function Announcements() {
               </label>
               <input
                 id="subject"
-                className="w-full border-gray-600 border-1 p-2 text-sm rounded-md outline-none"
+                className="w-full border-gray-600 border-1 p-2.5 text-sm rounded-md outline-none placeholder:text-xs"
                 name="subject"
                 type="text"
+                placeholder="Message Title"
               />
             </div>
             <div className="grid gap-0.5">
@@ -24,14 +30,15 @@ export default function Announcements() {
                 Body:
               </label>
               <textarea
-                className="outline-none resize-none w-full border-gray-600 border-1 p-2 text-sm rounded-md h-[40vh]"
+                className="outline-none resize-none w-full border-gray-600 border-1 p-2.5 text-sm rounded-md h-[40vh] placeholder:text-xs"
                 name="body"
                 id="body"
+                placeholder="Message body"
               ></textarea>
             </div>
-            <div>
+            <div className="grid justify-self-end">
               <button
-                className="bg-[#004bad] p-2 text-sm rounded text-gray-200 cursor-pointer"
+                className="bg-[#004bad] p-2.5 min-w-25  text-sm rounded-full text-gray-200 cursor-pointer"
                 type="submit"
               >
                 Send
@@ -41,17 +48,7 @@ export default function Announcements() {
         </div>
       </div>
       {/* right div for receipient list */}
-      <div className="grid gap-2 content-start">
-        <h1>Receipient List</h1>
-        <div className="grid gap-0.5">
-          <div className="bg-[#004bad] w-fit p-1.5 text-gray-200">
-            <p>favourlosotu@gmail.com</p>
-            <button type="button" className="-">
-              void button
-            </button>
-          </div>
-        </div>
-      </div>
+      <ReceipientComponent receipientList={[]} />
     </section>
   );
 }
