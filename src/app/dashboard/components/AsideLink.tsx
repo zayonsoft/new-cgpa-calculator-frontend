@@ -13,12 +13,8 @@ export default function AsideLink({ name, icon, url }: LinkProps) {
     <div>
       <p className={`text-gray-200`}>
         <Link
-          className={`custom-transition grid items-center rounded-sm hover:bg-gray-200 hover:text-[#005acf]
-            ${
-              asideOpened
-                ? "grid-cols-[auto_1fr] grid-rows-1 gap-1"
-                : "grid-cols-1 grid-rows-1 gap-0 justify-items-center"
-            }`}
+          className={`custom-transition items-center flex  rounded-sm hover:bg-gray-200 hover:text-[#005acf]
+            ${asideOpened ? "" : "justify-items-center"}`}
           href={url}
         >
           <span className={`p-2 grid`}>{icon}</span>

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { HiMail, HiViewGrid, HiLogout } from "react-icons/hi";
+import { HiMail, HiViewGrid, HiLogout, HiOutlineLogout } from "react-icons/hi";
 import AsideLink from "./AsideLink";
 import Image from "next/image";
 import { useAside } from "@/contexts/SidebarContext";
@@ -75,7 +75,7 @@ export default function Aside() {
 
         <AsideLink
           url="/dashboard/announcements"
-          name="Announcements"
+          name="Mail Users"
           icon={<HiMail size={20} />}
         />
       </div>
@@ -92,7 +92,11 @@ export default function Aside() {
         >
           Security
         </p>
-        <AsideLink url="/logout" name="Logout" icon={<HiLogout size={22} />} />
+        <AsideLink
+          url="/logout"
+          name="Logout"
+          icon={<HiOutlineLogout size={20} />}
+        />
       </div>
     </aside>
   );
