@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { HiViewGrid } from "react-icons/hi";
+import { HiMail, HiViewGrid } from "react-icons/hi";
 import { MdCampaign, MdLogout } from "react-icons/md";
 import AsideLink from "./AsideLink";
 import Image from "next/image";
@@ -68,11 +68,16 @@ export default function Aside() {
         >
           General
         </p>
-        <AsideLink url="" name="Home" icon={<HiViewGrid size={22} />} />
         <AsideLink
-          url=""
+          url="/dashboard"
+          name="Home"
+          icon={<HiViewGrid size={20} />}
+        />
+
+        <AsideLink
+          url="/dashboard/announcements"
           name="Announcements"
-          icon={<MdCampaign size={22} />}
+          icon={<HiMail size={20} />}
         />
       </div>
 
