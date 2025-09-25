@@ -33,8 +33,9 @@ export default function Login(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [formOkay, setFormOkay] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("Something Went Wrong!");
-  const [extraMsg, setExtraMsg] = useState<string>();
+  const [tempMessage, setTempMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [extraMsg, setExtraMsg] = useState<string>("Something Went Wrong!");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messageType, setMessageType] = useState<"success" | "error">("error");
 
@@ -63,10 +64,10 @@ export default function Login(): JSX.Element {
     if (messageType == "error") {
       if (email_or_username.trim() || password) {
         if (!email_or_username.trim())
-          setMessage("Email or Username is required");
-        else if (!password) setMessage("Password is Required!");
+          setTempMessage("Email or username is required");
+        else if (!password) setTempMessage("Password is required!");
       } else {
-        setMessage("Please fill in your details to log in");
+        setTempMessage("Please fill in all required fields");
       }
     }
   }, [email_or_username, password]);
@@ -83,6 +84,18 @@ export default function Login(): JSX.Element {
   useEffect(() => {
     removeError();
   }, [email_or_username, password]);
+
+  type msgPackageProps = {
+    message: string;
+    extra_msg: string;
+    msg_type: "error" | "success";
+  };
+  function messagePackage({ message, extra_msg, msg_type }: msgPackageProps) {
+    setMessageType(msg_type);
+    setMessage(message);
+    setExtraMsg(extra_msg);
+    setModalOpen(true);
+  }
 
   function submitForm(e: FormEvent, formOkay: boolean) {
     e.preventDefault();
@@ -110,6 +123,11 @@ export default function Login(): JSX.Element {
           setMessage("Login Successful");
           setExtraMsg("Redirecting...");
           setModalOpen(true);
+          messagePackage({
+            message: "Login Successful",
+            extra_msg: "You Will be redirected ",
+            msg_type: "success",
+          });
           router.push("/dashboard");
         })
         .catch((error) => {
@@ -118,19 +136,28 @@ export default function Login(): JSX.Element {
             errorGotten = error.response.data.detail;
           } else {
             error.message
-              ? (errorGotten = error.message)
+              ? (errorGotten = `${error.message}! Unable to connect`)
               : (errorGotten = "Something Went Wrong");
           }
-          setMessage(errorGotten);
           setShowError(true);
-          setModalOpen(true);
+
+          messagePackage({
+            message: "Error",
+            extra_msg: errorGotten,
+            msg_type: "error",
+          });
           setLoading(false);
         });
 
       // Read response
     } else {
-      // show error
+      // If the form isn't okay
       setShowError(true);
+      messagePackage({
+        message: "Incomplete form",
+        extra_msg: tempMessage,
+        msg_type: "error",
+      });
       // create a modal to escalate whatever issue
       setModalOpen(true);
     }
@@ -215,9 +242,9 @@ export default function Login(): JSX.Element {
                 </button>
                 {showError ? (
                   <small
-                    className={`${montserrat} text-center text-red-800 font-normal text-xs block`}
+                    className={`text-center text-gray-700 dark:text-gray-400 font-normal text-xs block`}
                   >
-                    {message}
+                    {extraMsg}
                   </small>
                 ) : null}
               </div>

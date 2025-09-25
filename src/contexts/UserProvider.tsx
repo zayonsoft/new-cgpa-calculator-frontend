@@ -5,6 +5,7 @@ import { UserResponseType } from "./UserContext";
 import RequestAPI from "@/app/tokens/RequestAPI";
 import UpdateTokens from "@/app/tokens/UpdateTokens";
 import { useRouter } from "next/navigation";
+import MessageModal from "@/app/components/MessageModal";
 
 export default function UserProvider({ children }: { children: ReactNode }) {
   // creating a user object that holds the currently logged in user, tied to a state thus easily changing once the api request is made
@@ -14,6 +15,11 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     user_profile: { is_admin: false, phone_number: "" },
   };
   const [user, setUser] = useState(systemUser);
+  const [modalOpened, setModalOpened] = useState<boolean>(false);
+
+  function closeModal() {
+    setModalOpened(false);
+  }
 
   const axios = RequestAPI();
   const router = useRouter();
@@ -84,6 +90,13 @@ export default function UserProvider({ children }: { children: ReactNode }) {
   return (
     <UserContext.Provider value={{ user, updateUser }}>
       {children}
+      <MessageModal
+        message="Testing"
+        extra_msg={"This is a test"}
+        open={modalOpened}
+        modalCloser={closeModal}
+        type="success"
+      />
     </UserContext.Provider>
   );
 }

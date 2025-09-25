@@ -1,6 +1,5 @@
 import ClassicUnderline from "@/app/components/ClassicUnderline";
 import ReceipientComponent from "./ReceipientComponent";
-import MessageModal from "@/app/components/MessageModal2";
 
 export default function Announcements() {
   return (
@@ -50,7 +49,6 @@ export default function Announcements() {
       </div>
       {/* right div for receipient list */}
       <ReceipientComponent receipientList={[]} />
-      <MessageModal />
     </section>
   );
 }
