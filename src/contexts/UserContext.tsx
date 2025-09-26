@@ -6,6 +6,7 @@ type ProfileType = {
 };
 
 export interface UserResponseType {
+  id?: number | string;
   username: string;
   email: string;
   first_name?: string;

@@ -4,8 +4,14 @@ import { HiPlusCircle } from "react-icons/hi2";
 import Receipient from "./Receipient";
 type ListProps = {
   receipientList: [];
+  search: string;
+  updateSearch: (search: string) => void;
 };
-export default function ReceipientComponent({ receipientList }: ListProps) {
+export default function ReceipientComponent({
+  receipientList,
+  search,
+  updateSearch,
+}: ListProps) {
   return (
     <div className="p-4 py-5.5 grid gap-5 content-start">
       <div>
@@ -19,7 +25,7 @@ export default function ReceipientComponent({ receipientList }: ListProps) {
 
       {/* SEARCH */}
       <div>
-        <div className="flex gap-1 px-2 py-1.5 rounded-full items-center border-2 border-[#004bad]">
+        <div className="flex gap-1 px-2 py-2 rounded-full items-center border-2 border-[#004bad]">
           <span className="text-[#004bad]">
             <label htmlFor="search">
               <HiSearch strokeWidth={0.5} />
@@ -30,6 +36,8 @@ export default function ReceipientComponent({ receipientList }: ListProps) {
             type="search"
             className="outline-none w-full text-sm"
             placeholder="Search"
+            onChange={(e) => updateSearch(e.target.value)}
+            value={search}
           />
         </div>
       </div>

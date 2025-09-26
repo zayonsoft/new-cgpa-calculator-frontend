@@ -225,7 +225,7 @@ export default function Login(): JSX.Element {
                 updatePassword={updatePassword}
               />
 
-              <div>
+              <div className="grid gap-1">
                 <button
                   className={`${
                     loading

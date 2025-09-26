@@ -6,6 +6,7 @@ import RequestAPI from "@/app/tokens/RequestAPI";
 import UpdateTokens from "@/app/tokens/UpdateTokens";
 import { useRouter } from "next/navigation";
 import MessageModal from "@/app/components/MessageModal";
+import { getAccessToken, getRefreshToken } from "@/app/tokens/GetTokens";
 
 export default function UserProvider({ children }: { children: ReactNode }) {
   // creating a user object that holds the currently logged in user, tied to a state thus easily changing once the api request is made
@@ -45,7 +46,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
   }
 
   function checkAccess() {
-    const accessToken = localStorage.getItem("cgpa_calc_access");
+    const accessToken = getAccessToken();
     // use the current access token to get the currently logged in user
     axios
       .get("current_user", {
@@ -64,7 +65,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
 
   function checkRefresh() {
     // check the refresh token, so it can get new access token
-    const refreshToken = localStorage.getItem("cgpa_calc_refresh");
+    const refreshToken = getRefreshToken();
     axios
       .post("token/refresh", { refresh: refreshToken })
       .then((response) => {
