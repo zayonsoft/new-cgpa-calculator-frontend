@@ -6,7 +6,7 @@ import SidebarProvider from "@/contexts/SidebarProvider";
 import UserProvider from "@/contexts/UserProvider";
 
 export const metadata: Metadata = {
-  title: "LOGIN | CGPA CALCULATOR ",
+  title: "DASHBOARD | CGPA CALCULATOR ",
   icons: {
     icon: "/round_logo_t_w.png",
     shortcut: "/round_logo_t_w.png",
