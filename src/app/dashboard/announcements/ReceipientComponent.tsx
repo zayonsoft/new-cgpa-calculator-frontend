@@ -10,6 +10,7 @@ type ListProps = {
   selectedIds: Record<string, any>;
   updateSearch: (search: string) => void;
   updateSelection: (id: string | number) => void;
+  selectAll: () => void;
 };
 
 export default function ReceipientComponent({
@@ -18,6 +19,7 @@ export default function ReceipientComponent({
   selectedIds,
   updateSearch,
   updateSelection,
+  selectAll,
 }: ListProps) {
   return (
     <div className="p-4 py-5.5 grid gap-5 content-start">
@@ -56,6 +58,7 @@ export default function ReceipientComponent({
           <span>
             {" "}
             <button
+              onClick={selectAll}
               type="button"
               className="text-[#004bad] hover:text-gray-200 hover:bg-[#004bad] custom-transition cursor-pointer text-xs rounded-full p-0.5 border border-[#004bad]"
             >

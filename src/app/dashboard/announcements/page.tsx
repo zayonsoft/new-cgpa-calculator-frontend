@@ -53,6 +53,19 @@ export default function Announcements() {
     setSelectedIds((prevData: any) => ({ ...prevData, [id]: newState }));
   }
 
+  function selectReceipient(id: string | number) {
+    const tempSelection = selectedIds;
+
+    setSelectedIds((prevData: any) => ({ ...prevData, [id]: true }));
+  }
+
+  function selectAll() {
+    for (var i in users) {
+      let user = users[i];
+      selectReceipient(user.id!);
+    }
+  }
+
   return (
     <section className="grid gap-4 grid-cols-2 max-[601px]:grid-cols-1">
       {/* Left div */}
@@ -106,11 +119,12 @@ export default function Announcements() {
       </div>
       {/* right div for receipient list */}
       <ReceipientComponent
-        updateSelection={updateSelection}
         receipientList={users}
         search={search}
         selectedIds={selectedIds}
         updateSearch={updateSearch}
+        updateSelection={updateSelection}
+        selectAll={selectAll}
       />
     </section>
   );
