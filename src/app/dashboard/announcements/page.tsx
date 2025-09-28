@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import RequestAPI from "@/app/tokens/RequestAPI";
 import { getAccessToken } from "@/app/tokens/GetTokens";
 import { UserResponseType } from "@/contexts/UserContext";
+import { useUser } from "@/contexts/UserContext";
 
 export default function Announcements() {
-  const [users, setUsers] = useState<{}[]>([]);
+  const { user } = useUser();
+  const [users, setUsers] = useState<UserResponseType[]>([]);
+  const [selectedIds, setSelectedIds] = useState<Record<string, any>>({});
   const [search, setSearch] = useState("");
   const axios = RequestAPI();
-
   useEffect(() => {
     const access = getAccessToken();
     axios
@@ -22,35 +24,21 @@ export default function Announcements() {
       })
       .then((response) => {
         let userList = response.data?.users as [];
-        userList.map(
-          ({
-            id,
-            username,
-            email,
-            first_name,
-            last_name,
-          }: UserResponseType) => {
-            let user = {
-              id,
-              username,
-              email,
-              first_name,
-              last_name,
-              is_selected: false,
-            };
-            setUsers([user]);
-            console.log("Hi");
-          }
-        );
-        console.log(users);
+        setUsers(userList);
       })
       .catch((err) => {
         console.log(err.status);
       });
-  }, [search]);
+  }, [user, search]);
 
   function updateSearch(value: string) {
     setSearch(value);
+  }
+
+  function updateSelection(id: string | number) {
+    const tempSelection = selectedIds;
+    tempSelection[id] = !(id in tempSelection && tempSelection[id]);
+    setSelectedIds(tempSelection);
   }
 
   return (
@@ -100,8 +88,10 @@ export default function Announcements() {
       </div>
       {/* right div for receipient list */}
       <ReceipientComponent
-        receipientList={[]}
+        updateSelection={updateSelection}
+        receipientList={users}
         search={search}
+        selectedIds={selectedIds}
         updateSearch={updateSearch}
       />
     </section>

@@ -1,16 +1,23 @@
 import ClassicUnderline from "@/app/components/ClassicUnderline";
 import { HiCheck, HiMinusCircle, HiPlus, HiSearch } from "react-icons/hi";
-import { HiPlusCircle } from "react-icons/hi2";
 import Receipient from "./Receipient";
+import { UserResponseType } from "@/contexts/UserContext";
+import { v4 } from "uuid";
+
 type ListProps = {
-  receipientList: [];
+  receipientList: UserResponseType[];
   search: string;
+  selectedIds: Record<string, any>;
   updateSearch: (search: string) => void;
+  updateSelection: (id: string | number) => void;
 };
+
 export default function ReceipientComponent({
   receipientList,
   search,
+  selectedIds,
   updateSearch,
+  updateSelection,
 }: ListProps) {
   return (
     <div className="p-4 py-5.5 grid gap-5 content-start">
@@ -58,17 +65,19 @@ export default function ReceipientComponent({
         </p>
       </div>
       <div className="flex gap-1.5 flex-wrap">
-        <div className="border-[#004bad] bg-gray-100  border-2 w-fit p-1.5 text-gray-900 rounded-full grid gap-1 grid-cols-[auto_auto] items-center">
-          <p className="text-sm"> favourlosotu@gmail.com</p>
-          <button
-            type="button"
-            className="text-xl text-red-600 cursor-pointer custom-transition hover:scale-125"
-          >
-            {" "}
-            <HiMinusCircle />{" "}
-          </button>
-        </div>
-        <Receipient />
+        {receipientList.map((each) => {
+          const userId = each.id!;
+          let isSelected = userId in selectedIds && selectedIds[userId];
+          return (
+            <Receipient
+              updateSelection={updateSelection}
+              id={userId}
+              key={v4()}
+              email={each.email}
+              selected={isSelected}
+            />
+          );
+        })}
       </div>
     </div>
   );

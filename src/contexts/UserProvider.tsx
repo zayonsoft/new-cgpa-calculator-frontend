@@ -53,8 +53,6 @@ export default function UserProvider({ children }: { children: ReactNode }) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {
-        // if its successful update the data
-        console.log(response.status);
         updateUser(response.data.user);
       })
       .catch(() => {
@@ -71,7 +69,8 @@ export default function UserProvider({ children }: { children: ReactNode }) {
       .then((response) => {
         // if its valid, then update the access token and go back to fetch the user
         const new_access_token = response?.data?.access;
-        UpdateTokens(new_access_token);
+        const new_refresh_token = response?.data?.refresh;
+        UpdateTokens(new_access_token, new_refresh_token);
         checkAccess();
       })
       .catch(() => {
@@ -86,7 +85,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     // NOTE: The reason I didn't just refresh the token is because the user might just be coming from the login page
 
     // next step is to try refreshing the access token after a while
-    setInterval(() => {}, 2000);
+    setInterval(() => {}, 3000);
   }, []);
   return (
     <UserContext.Provider value={{ user, updateUser }}>
