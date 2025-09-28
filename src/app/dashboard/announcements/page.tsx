@@ -10,10 +10,11 @@ import { useUser } from "@/contexts/UserContext";
 export default function Announcements() {
   const { user } = useUser();
   const [users, setUsers] = useState<UserResponseType[]>([]);
-  const [selectedIds, setSelectedIds] = useState<Record<string, any>>({});
+  const [selectedIds, setSelectedIds] = useState<any>({});
   const [search, setSearch] = useState("");
   const axios = RequestAPI();
   useEffect(() => {
+    console.log("Gotten");
     const access = getAccessToken();
     axios
       .get("users", {
@@ -37,8 +38,10 @@ export default function Announcements() {
 
   function updateSelection(id: string | number) {
     const tempSelection = selectedIds;
-    tempSelection[id] = !(id in tempSelection && tempSelection[id]);
-    setSelectedIds(tempSelection);
+    let newState = !(id in tempSelection && tempSelection[id]);
+    console.log(tempSelection);
+
+    setSelectedIds((prevData: any) => ({ ...prevData, [id]: newState }));
   }
 
   return (

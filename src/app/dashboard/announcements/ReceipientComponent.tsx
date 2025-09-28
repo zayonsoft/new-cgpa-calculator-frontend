@@ -67,14 +67,13 @@ export default function ReceipientComponent({
       <div className="flex gap-1.5 flex-wrap">
         {receipientList.map((each) => {
           const userId = each.id!;
-          let isSelected = userId in selectedIds && selectedIds[userId];
           return (
             <Receipient
               updateSelection={updateSelection}
               id={userId}
               key={v4()}
               email={each.email}
-              selected={isSelected}
+              selectionData={selectedIds}
             />
           );
         })}
