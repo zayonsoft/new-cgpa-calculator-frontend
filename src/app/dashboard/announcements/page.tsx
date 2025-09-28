@@ -11,6 +11,7 @@ export default function Announcements() {
   const { user } = useUser();
   const [users, setUsers] = useState<UserResponseType[]>([]);
   const [selectedIds, setSelectedIds] = useState<any>({});
+  const [receipientCount, setReceipientCount] = useState<number>(0);
   const [search, setSearch] = useState("");
   const axios = RequestAPI();
   useEffect(() => {
@@ -32,6 +33,15 @@ export default function Announcements() {
       });
   }, [user, search]);
 
+  useEffect(() => {
+    var count = 0;
+    for (var i in selectedIds) {
+      let eachValue = selectedIds[i]; //returns true or false if selected or not
+      eachValue ? count++ : count;
+    }
+    setReceipientCount(count);
+  }, [selectedIds]);
+
   function updateSearch(value: string) {
     setSearch(value);
   }
@@ -39,7 +49,6 @@ export default function Announcements() {
   function updateSelection(id: string | number) {
     const tempSelection = selectedIds;
     let newState = !(id in tempSelection && tempSelection[id]);
-    console.log(tempSelection);
 
     setSelectedIds((prevData: any) => ({ ...prevData, [id]: newState }));
   }
@@ -52,6 +61,12 @@ export default function Announcements() {
           <h1 className="text-xl font-semibold text-gray-900">
             <ClassicUnderline text="Send Mail" />
           </h1>
+        </div>
+        <div className="px-4">
+          <p className="p-2 bg-[#004bad] text-gray-100 w-fit rounded-md text-sm">
+            <span>{receipientCount}</span> Receipient
+            {receipientCount > 1 ? "s" : ""} Selected
+          </p>
         </div>
         <div className="p-4 ">
           <form className="grid gap-4" action="">
