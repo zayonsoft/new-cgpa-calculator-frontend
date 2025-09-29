@@ -3,7 +3,7 @@ import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
 
 type ReceipientProps = {
   id: number | string;
-  selectionData: Record<string, any>;
+  selectionData: Record<string, string | number>;
   email: string;
   updateSelection: (id: string | number) => void;
 };

@@ -3,6 +3,7 @@ import { HiCheck, HiMinusCircle, HiPlus, HiSearch } from "react-icons/hi";
 import Receipient from "./Receipient";
 import { UserResponseType } from "@/contexts/UserContext";
 import { v4 } from "uuid";
+import { IoReload } from "react-icons/io5";
 
 type ListProps = {
   receipientList: UserResponseType[];
@@ -11,6 +12,11 @@ type ListProps = {
   updateSearch: (search: string) => void;
   updateSelection: (id: string | number) => void;
   selectAll: () => void;
+  errorObj: {
+    error: string;
+    active: boolean;
+  };
+  reloadReceipient: () => void;
 };
 
 export default function ReceipientComponent({
@@ -20,15 +26,17 @@ export default function ReceipientComponent({
   updateSearch,
   updateSelection,
   selectAll,
+  reloadReceipient,
+  errorObj,
 }: ListProps) {
   return (
-    <div className="p-4 py-5.5 grid gap-5 content-start">
+    <div className="custom-transition p-4 py-5.5 grid gap-5 content-start">
       <div>
         <h1 className="text-xl font-semibold">
           <ClassicUnderline text={"Receipients"} />
         </h1>
         <p className="text-xs text-center">
-          You can Deselect any recipient you don't want
+          You can Deselect any recipient you don&apos;t want
         </p>
       </div>
 
@@ -67,19 +75,39 @@ export default function ReceipientComponent({
           </span>
         </p>
       </div>
-      <div className="flex gap-1.5 flex-wrap">
-        {receipientList.map((each) => {
-          const userId = each.id!;
-          return (
-            <Receipient
-              updateSelection={updateSelection}
-              id={userId}
-              key={v4()}
-              email={each.email}
-              selectionData={selectedIds}
-            />
-          );
-        })}
+      {errorObj.active ? (
+        <div className="text-center text-sm w-full grid gap-1.5">
+          <span>{errorObj.error}</span>
+
+          <button
+            onClick={reloadReceipient}
+            className="flex gap-1 items-center m-auto rounded-md bg-red-600 hover:bg-red-700 custom-transition p-1.5 text-sm text-white"
+            type="button"
+          >
+            <span>Reload</span>
+            <IoReload />
+          </button>
+        </div>
+      ) : null}
+      <div className="flex gap-1.5 flex-wrap ">
+        {receipientList.length > 0 ? (
+          receipientList.map((each) => {
+            const userId = each.id!;
+            return (
+              <Receipient
+                updateSelection={updateSelection}
+                id={userId}
+                key={v4()}
+                email={each.email}
+                selectionData={selectedIds}
+              />
+            );
+          })
+        ) : (
+          <p className="text-center w-full">
+            {errorObj.active ? "" : "No Data Available!"}
+          </p>
+        )}
       </div>
     </div>
   );

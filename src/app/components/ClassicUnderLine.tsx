@@ -1,8 +1,8 @@
 "use client";
 import { useTheme } from "@/contexts/ThemeContext";
 
-export default function ClassicUnderline({ text }: { text: String }) {
-  const { theme, toggleTheme } = useTheme();
+export default function ClassicUnderline({ text }: { text: string }) {
+  const { theme } = useTheme();
   return (
     <div className="grid grid-cols-[1fr_auto_1fr] items-center content-center gap-2 **:transition ease-in-out duration-900">
       <span>

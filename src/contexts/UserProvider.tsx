@@ -85,7 +85,10 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     // NOTE: The reason I didn't just refresh the token is because the user might just be coming from the login page
 
     // next step is to try refreshing the access token after a while
-    setInterval(() => {}, 3000);
+    setInterval(() => {
+      checkRefresh();
+      console.log("refreshed!");
+    }, 1000 * 60 * 2);
   }, []);
   return (
     <UserContext.Provider value={{ user, updateUser }}>

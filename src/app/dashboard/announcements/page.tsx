@@ -13,6 +13,15 @@ export default function Announcements() {
   const [selectedIds, setSelectedIds] = useState<any>({});
   const [receipientCount, setReceipientCount] = useState<number>(0);
   const [search, setSearch] = useState("");
+  const [receipientError, setReceipientError] = useState<{
+    error: string;
+    active: boolean;
+  }>({
+    error: "",
+    active: false,
+  });
+  const [reload, setReload] = useState<boolean>(false);
+
   const axios = RequestAPI();
   useEffect(() => {
     console.log("Gotten");
@@ -29,18 +38,26 @@ export default function Announcements() {
         setUsers(userList);
       })
       .catch((err) => {
-        console.log(err.status);
+        if (err.status == 401) {
+          showReceipientError("An Error Occured! Try Refreshing the Page");
+        } else {
+          showReceipientError("Network Error! Couldn't Connect to the Server!");
+        }
       });
-  }, [user, search]);
+  }, [user, search, reload]);
 
   useEffect(() => {
-    var count = 0;
-    for (var i in selectedIds) {
-      let eachValue = selectedIds[i]; //returns true or false if selected or not
+    let count = 0;
+    for (let i in selectedIds) {
+      const eachValue = selectedIds[i]; //returns true or false if selected or not
       eachValue ? count++ : count;
     }
     setReceipientCount(count);
   }, [selectedIds]);
+
+  useEffect(() => {
+    hideReceipientError();
+  }, [reload]);
 
   function updateSearch(value: string) {
     setSearch(value);
@@ -54,9 +71,11 @@ export default function Announcements() {
   }
 
   function selectReceipient(id: string | number) {
-    const tempSelection = selectedIds;
-
     setSelectedIds((prevData: any) => ({ ...prevData, [id]: true }));
+  }
+
+  function reloadReceipients() {
+    setReload((prevValue) => !prevValue);
   }
 
   function selectAll() {
@@ -66,6 +85,12 @@ export default function Announcements() {
     }
   }
 
+  function showReceipientError(message: string) {
+    setReceipientError({ error: message, active: true });
+  }
+  function hideReceipientError() {
+    setReceipientError({ error: "", active: false });
+  }
   return (
     <section className="grid gap-4 grid-cols-2 max-[601px]:grid-cols-1">
       {/* Left div */}
@@ -125,6 +150,8 @@ export default function Announcements() {
         updateSearch={updateSearch}
         updateSelection={updateSelection}
         selectAll={selectAll}
+        errorObj={receipientError}
+        reloadReceipient={reloadReceipients}
       />
     </section>
   );
