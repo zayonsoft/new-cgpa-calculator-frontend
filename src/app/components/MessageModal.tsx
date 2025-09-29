@@ -1,6 +1,6 @@
 import { Montserrat } from "next/font/google";
 import { HiXCircle, HiCheck, HiCheckCircle, HiX } from "react-icons/hi";
-type ModalProps = {
+export type ModalProps = {
   message: string;
   extra_msg?: string | null;
   type: "success" | "error";

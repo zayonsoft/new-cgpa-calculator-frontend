@@ -5,7 +5,7 @@ import { UserResponseType } from "./UserContext";
 import RequestAPI from "@/app/tokens/RequestAPI";
 import UpdateTokens from "@/app/tokens/UpdateTokens";
 import { useRouter } from "next/navigation";
-import MessageModal from "@/app/components/MessageModal";
+import MessageModal, { ModalProps } from "@/app/components/MessageModal";
 import { getAccessToken, getRefreshToken } from "@/app/tokens/GetTokens";
 
 export default function UserProvider({ children }: { children: ReactNode }) {
@@ -15,11 +15,31 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     email: "...",
     user_profile: { is_admin: false, phone_number: "" },
   };
+  type SetModalProps = {
+    message: string;
+    extra_msg: string;
+    type: "error" | "success";
+  };
   const [user, setUser] = useState(systemUser);
   const [modalOpened, setModalOpened] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<SetModalProps>({
+    message: "",
+    extra_msg: "",
+    type: "error",
+  });
 
   function closeModal() {
     setModalOpened(false);
+  }
+
+  function setModalMessage({ message, extra_msg, type }: SetModalProps) {
+    setModalOpened(true);
+    setModalData((prevData: SetModalProps) => ({
+      ...prevData,
+      message,
+      extra_msg,
+      type,
+    }));
   }
 
   const axios = RequestAPI();
@@ -73,9 +93,16 @@ export default function UserProvider({ children }: { children: ReactNode }) {
         UpdateTokens(new_access_token, new_refresh_token);
         checkAccess();
       })
-      .catch(() => {
+      .catch((err) => {
         // if the refresh token is still invaid then go ack to login to get new set of tokens.
-        router.push("/login");
+        if (err.status == 401) router.push("/login");
+        else
+          setModalMessage({
+            message: "Unable to Connect",
+            extra_msg:
+              "Try Checking Internet your connection or Try again Later",
+            type: "error",
+          });
       });
   }
 
@@ -87,18 +114,17 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     // next step is to try refreshing the access token after a while
     setInterval(() => {
       checkRefresh();
-      console.log("refreshed!");
     }, 1000 * 60 * 2);
   }, []);
   return (
     <UserContext.Provider value={{ user, updateUser }}>
       {children}
       <MessageModal
-        message="Testing"
-        extra_msg={"This is a test"}
+        message={modalData.message}
+        extra_msg={modalData.extra_msg}
         open={modalOpened}
         modalCloser={closeModal}
-        type="success"
+        type={modalData.type}
       />
     </UserContext.Provider>
   );
