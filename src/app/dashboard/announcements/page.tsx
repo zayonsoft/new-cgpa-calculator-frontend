@@ -63,6 +63,7 @@ export default function Announcements() {
         },
       })
       .then((response) => {
+        hideReceipientError();
         let userList = response.data?.users as [];
         setUsers(userList);
       })
@@ -177,6 +178,12 @@ export default function Announcements() {
         })
         .then((response) => {
           console.log(response.data);
+          let successMsg = response.data?.detail;
+          setModalMessage({
+            message: "Success",
+            extra_msg: successMsg ? successMsg : "Mails Sent Successfully",
+            type: "success",
+          });
           //set message to success
         })
         .catch((err) => {
