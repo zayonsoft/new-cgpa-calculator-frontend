@@ -1,12 +1,11 @@
 "use client";
 import ClassicUnderline from "@/app/components/ClassicUnderline";
 import ReceipientComponent from "./ReceipientComponent";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import RequestAPI from "@/app/tokens/RequestAPI";
 import { getAccessToken } from "@/app/tokens/GetTokens";
 import { UserResponseType } from "@/contexts/UserContext";
 import { useUser } from "@/contexts/UserContext";
-
 export default function Announcements() {
   const { user } = useUser();
   const [users, setUsers] = useState<UserResponseType[]>([]);
@@ -21,6 +20,10 @@ export default function Announcements() {
     active: false,
   });
   const [reload, setReload] = useState<boolean>(false);
+  const [formData, setFormData] = useState<{ title: string; body: string }>({
+    title: "",
+    body: "",
+  });
 
   const axios = RequestAPI();
   useEffect(() => {
@@ -91,6 +94,40 @@ export default function Announcements() {
   function hideReceipientError() {
     setReceipientError({ error: "", active: false });
   }
+
+  function updateTitle(newValue: string) {
+    setFormData((prevData) => ({ ...prevData, title: newValue }));
+  }
+
+  function updateBody(newValue: string) {
+    setFormData((prevData) => ({ ...prevData, body: newValue }));
+  }
+
+  function submitForm(e: FormEvent) {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const mailForm = new FormData(form);
+    let receipientList = [];
+    for (let i in selectedIds) {
+      const selected = selectedIds[i];
+      if (selected) receipientList.push(i);
+    }
+    mailForm.append("receipients", JSON.stringify(receipientList));
+
+    if (receipientCount > 0) {
+      axios
+        .post("mail_users", mailForm, {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err.status);
+        });
+    }
+  }
+
   return (
     <section className="grid gap-4 grid-cols-2 max-[601px]:grid-cols-1">
       {/* Left div */}
@@ -107,7 +144,11 @@ export default function Announcements() {
           </p>
         </div>
         <div className="p-4 ">
-          <form className="grid gap-4" action="">
+          <form
+            onSubmit={(e) => submitForm(e)}
+            className="grid gap-4"
+            action=""
+          >
             <div className="grid gap-0.5">
               <label htmlFor="subject" className="text-sm">
                 Subject:
@@ -115,8 +156,10 @@ export default function Announcements() {
               <input
                 id="subject"
                 className="w-full border-gray-600 border-1 p-2.5 text-sm rounded-md outline-none placeholder:text-xs"
-                name="subject"
+                name="title"
                 type="text"
+                value={formData.title}
+                onChange={(e) => updateTitle(e.target.value)}
                 placeholder="Message Title"
               />
             </div>
@@ -128,6 +171,8 @@ export default function Announcements() {
                 className="outline-none resize-none w-full border-gray-600 border-1 p-2.5 text-sm rounded-md h-[40vh] placeholder:text-xs"
                 name="body"
                 id="body"
+                value={formData.body}
+                onChange={(e) => updateBody(e.target.value)}
                 placeholder="Message body"
               ></textarea>
             </div>

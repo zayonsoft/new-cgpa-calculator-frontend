@@ -95,8 +95,9 @@ export default function UserProvider({ children }: { children: ReactNode }) {
       })
       .catch((err) => {
         // if the refresh token is still invaid then go ack to login to get new set of tokens.
-        if (err.status == 401) router.push("/login");
-        else
+        if (err.status == 401) {
+          router.push("/login");
+        } else
           setModalMessage({
             message: "Unable to Connect",
             extra_msg:
@@ -106,15 +107,18 @@ export default function UserProvider({ children }: { children: ReactNode }) {
       });
   }
 
+  const oneMinute = 1000 * 60;
   useEffect(() => {
     // when the page mounts check if the access code is valid by calling the function to fetch the current user
     checkAccess();
     // NOTE: The reason I didn't just refresh the token is because the user might just be coming from the login page
 
     // next step is to try refreshing the access token after a while
-    setInterval(() => {
+    const REFRESHID = setInterval(() => {
       checkRefresh();
-    }, 1000 * 60 * 2);
+    }, oneMinute * 3);
+
+    return () => clearInterval(REFRESHID);
   }, []);
   return (
     <UserContext.Provider value={{ user, updateUser }}>
