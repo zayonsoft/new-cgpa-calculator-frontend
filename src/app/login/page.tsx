@@ -233,9 +233,9 @@ export default function Login(): JSX.Element {
                       : "bg-[#9BF718] cursor-pointer"
                   } relative custom-transition ${
                     !loading ? "hover:bg-[#06ab00]" : ""
-                  }  w-full rounded-xl text-xs box-border h-10 after:w-7 after:h-7 after:rounded-full after:border-gray-900 after:border-l-gray-400 after:border-5 after:-translate-1/2 after:left-1/2 after:top-1/2 py-3 after:absolute ${
+                  }  w-full rounded-xl text-xs box-border h-10 after:w-7 after:h-7 after:rounded-full after:border-gray-900 after:border-l-gray-400 after:border-5 after:-translate-1/2 after:left-1/2 after:top-1/2 py-3 after:absolute  after:bg-transparent after:animate-spin ${
                     !loading ? "after:hidden" : "after:block"
-                  } after:bg-transparent after:animate-spin`}
+                  }`}
                   type="submit"
                 >
                   {!loading ? `Log In` : ""}

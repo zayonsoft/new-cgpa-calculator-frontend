@@ -8,6 +8,11 @@ import { useRouter } from "next/navigation";
 import MessageModal, { ModalProps } from "@/app/components/MessageModal";
 import { getAccessToken, getRefreshToken } from "@/app/tokens/GetTokens";
 
+export type SetModalProps = {
+  message: string;
+  extra_msg: string;
+  type: "error" | "success";
+};
 export default function UserProvider({ children }: { children: ReactNode }) {
   // creating a user object that holds the currently logged in user, tied to a state thus easily changing once the api request is made
   const systemUser: UserResponseType = {
@@ -15,11 +20,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
     email: "...",
     user_profile: { is_admin: false, phone_number: "" },
   };
-  type SetModalProps = {
-    message: string;
-    extra_msg: string;
-    type: "error" | "success";
-  };
+
   const [user, setUser] = useState(systemUser);
   const [modalOpened, setModalOpened] = useState<boolean>(false);
   const [modalData, setModalData] = useState<SetModalProps>({
